@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andy's Wonderful Adventure</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: #f9f7f2;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: #4a8fe7;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #ffeb3b;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            text-align: center;
+            padding: 8rem 1rem 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Story Container */
+        .story-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        /* Scene Styles */
+        .scene {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .scene:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .scene-header {
+            background-color: #4a8fe7;
+            color: white;
+            padding: 1rem;
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+        
+        .scene-content {
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
+        }
+        
+        @media (min-width: 768px) {
+            .scene-content {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .scene-content.reverse {
+                flex-direction: row-reverse;
+            }
+        }
+        
+        .scene-text {
+            flex: 1;
+            padding: 1rem;
+        }
+        
+        .scene-image {
+            flex: 1;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .scene-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .scene-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 300px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #74b9ff;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #74b9ff;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: #74b9ff;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #555;
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4a8fe7;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            opacity: 0;
+            transition: opacity 0.3s, background-color 0.3s;
+            z-index: 999;
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+        }
+        
+        .back-to-top:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #4a8fe7;
+                padding: 1rem;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 0.5rem 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .scene-header {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">Andy's Adventure</a>
+            <button class="hamburger">☰</button>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#story">Story</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Andy's Wonderful Adventure</h1>
+        <p>Join Andy on a magical journey through an enchanted forest where he makes new friends and learns about courage and teamwork.</p>
+    </section>
+    
+    <!-- Story Section -->
+    <section id="story" class="story-container">
+        <!-- Scene 1 -->
+        <div class="scene">
+            <div class="scene-header">Scene 1: Morning Begins</div>
+            <div class="scene-content">
+                <div class="scene-text">
+                    <p>Andy wakes up early in the morning, with sunlight streaming through his window. He stretches and smiles brightly, looking forward to today's adventure.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 1 -->
+                    <img src="image1.jpeg" alt="Andy waking up in the morning">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 2 -->
+        <div class="scene">
+            <div class="scene-header">Scene 2: A Special Discovery</div>
+            <div class="scene-content reverse">
+                <div class="scene-text">
+                    <p>After breakfast, Andy discovers a shimmering leaf in the garden. He carefully picks it up and finds that this leaf can emit colorful light!</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 2 -->
+                    <img src="image2.jpeg" alt="Andy discovering a magical leaf">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 3 -->
+        <div class="scene">
+            <div class="scene-header">Scene 3: A Magical Invitation</div>
+            <div class="scene-content">
+                <div class="scene-text">
+                    <p>As Andy holds the leaf, a blue bird flies over. The bird says, "Andy, come with me, I want to take you to a special place!"</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 3 -->
+                    <img src="image3.jpg" alt="A blue bird talking to Andy">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 4 -->
+        <div class="scene">
+            <div class="scene-header">Scene 4: Journey Through the Forest</div>
+            <div class="scene-content reverse">
+                <div class="scene-text">
+                    <p>Andy follows the bird to a magical forest. Here, the trees are taller than usual, and the flowers are more vibrant than normal.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 4 -->
+                    <img src="image4.jpeg" alt="Andy in a magical forest">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 5 -->
+        <div class="scene">
+            <div class="scene-header">Scene 5: New Friends</div>
+            <div class="scene-content">
+                <div class="scene-text">
+                    <p>In the forest, Andy meets a shy little rabbit, a clever fox, and a friendly bear. They all become Andy's new friends.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 5 -->
+                    <img src="image5.jpeg" alt="Andy meeting forest animals">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 6 -->
+        <div class="scene">
+            <div class="scene-header">Scene 6: A Challenge Appears</div>
+            <div class="scene-content reverse">
+                <div class="scene-text">
+                    <p>Suddenly, the sky darkens. A heavy rain is coming, and the animals in the forest are afraid. They need to find shelter from the rain.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 6 -->
+                    <img src="image6.jpeg" alt="Dark sky over the forest">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 7 -->
+        <div class="scene">
+            <div class="scene-header">Scene 7: Teamwork</div>
+            <div class="scene-content">
+                <div class="scene-text">
+                    <p>Andy and his new friends work together, using branches and large leaves to build a small shelter. Everyone contributes their own strength.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 7 -->
+                    <img src="image7.jpg" alt="Andy and friends building shelter">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 8 -->
+        <div class="scene">
+            <div class="scene-header">Scene 8: Courage in the Storm</div>
+            <div class="scene-content reverse">
+                <div class="scene-text">
+                    <p>The storm arrives, but Andy and his friends are safe in their shelter. Andy uses his magical leaf to light up the shelter, helping everyone feel less afraid.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 8 -->
+                    <img src="image8.jpeg" alt="Andy using magical leaf during storm">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 9 -->
+        <div class="scene">
+            <div class="scene-header">Scene 9: After the Rain</div>
+            <div class="scene-content">
+                <div class="scene-text">
+                    <p>After the storm passes, a rainbow appears in the sky. The forest returns to its beautiful and peaceful state. All the animals thank Andy for his help.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 9 -->
+                    <img src="image9.jpeg" alt="Rainbow after the storm">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scene 10 -->
+        <div class="scene">
+            <div class="scene-header">Scene 10: The Way Home</div>
+            <div class="scene-content reverse">
+                <div class="scene-text">
+                    <p>It's time to go home. Andy says goodbye to his new friends, and the blue bird leads him back to his doorstep. Andy knows that whenever he wants to visit the forest again, he just needs to bring along that magical leaf.</p>
+                </div>
+                <div class="scene-image">
+                    <!-- Image placeholder for scene 10 -->
+                    <img src="image10.jpeg" alt="Andy saying goodbye">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="story-container">
+        <div class="scene">
+            <div class="scene-header">About This Story</div>
+            <div class="scene-content">
+                <div class="scene-text">
+                    <p>Andy's Wonderful Adventure is a children's storybook designed to teach valuable lessons about friendship, courage, and teamwork. Through Andy's journey in the magical forest, children learn the importance of helping others and working together to overcome challenges.</p>
+                    <p>This interactive storybook brings the adventure to life with beautiful illustrations and an engaging narrative that captivates young readers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="story-container">
+        <div class="scene">
+            <div class="scene-header">Contact Us</div>
+            <div class="scene-content">
+                <div class="scene-text">
+                    <p>For inquiries about Andy's Wonderful Adventure, please reach out to us:</p>
+                    <p>Email: info@andysadventure.com</p>
+                    <p>Phone: (123) 456-7890</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Andy's Adventure</h3>
+                <p>A magical storybook for children of all ages.</p>
+                <div class="social-links">
+                    <a href="#">FB</a>
+                    <a href="#">IG</a>
+                    <a href="#">TW</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#story">Story</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Subscribe</h3>
+                <p>Stay updated with new stories and adventures!</p>
+                <form>
+                    <input type="email" placeholder="Enter your email" style="padding: 0.5rem; width: 100%; margin-bottom: 0.5rem;">
+                    <button type="submit" style="padding: 0.5rem 1rem; background-color: #4a8fe7; color: white; border: none; cursor: pointer;">Subscribe</button>
+                </form>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Andy's Wonderful Adventure. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top">↑</a>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Back to Top Button
+        const backToTopButton = document.querySelector('.back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Add smooth scrolling to all links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+        
+        // Image loading animation
+        const sceneImages = document.querySelectorAll('.scene-image img');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        sceneImages.forEach(img => {
+            img.style.opacity = '0';
+            img.style.transition = 'opacity 0.5s ease-in-out';
+            observer.observe(img);
+        });
+    </script>
+</body>
+</html>
